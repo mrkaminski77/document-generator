@@ -9,7 +9,7 @@ $template = Resolve-Path $template
 Remove-Item $template -Steam Zone.Identifier
 "Downloading file"
 Invoke-WebRequest -Uri $md_path -OutFile '.\md.md'
-node .\convert.js md.md output.html
+node .\convert.js md.md
 $html = Resolve-Path '.\output.html'
 $out_path = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($out_path)
 "Initiatining Word"
@@ -25,15 +25,18 @@ $doc.InlineShapes | %{$_.Width = $picture_width}
 "Saving file"
 $doc.SaveAs($out_path)
 "Cleanup"
+$word.Quit(0)
+[System.Runtime.Interopservices.Marshal]::ReleaseComObject($word)
+$word = $null
 Remove-Item md.md
-Remove-Item output.html
-
+Remove-Item md.md.html
+[System.GC]::Collect()
 
 # SIG # Begin signature block
 # MIII3QYJKoZIhvcNAQcCoIIIzjCCCMoCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUvXx+SPA4FMbBMYiyQxOQ5Lzp
-# XgGgggY1MIIGMTCCBRmgAwIBAgIKSU7nJAABAABQADANBgkqhkiG9w0BAQUFADBj
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU6UBkpO030XqOKrJay9k8zeNR
+# x5CgggY1MIIGMTCCBRmgAwIBAgIKSU7nJAABAABQADANBgkqhkiG9w0BAQUFADBj
 # MRIwEAYKCZImiZPyLGQBGRYCYXUxEzARBgoJkiaJk/IsZAEZFgNjb20xGDAWBgoJ
 # kiaJk/IsZAEZFghzZXJjb2JwbzEeMBwGA1UEAxMVc2VyY29icG8tRVhCRU5EQzAy
 # LUNBMB4XDTE3MDUyOTA3MTE0NVoXDTE4MDUyOTA3MTE0NVowgZ8xEjAQBgoJkiaJ
@@ -71,11 +74,11 @@ Remove-Item output.html
 # HAYDVQQDExVzZXJjb2Jwby1FWEJFTkRDMDItQ0ECCklO5yQAAQAAUAAwCQYFKw4D
 # AhoFAKB4MBgGCisGAQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwG
 # CisGAQQBgjcCAQQwHAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZI
-# hvcNAQkEMRYEFBwG7xX1D5/zyUz6JfkDjpIZIwJgMA0GCSqGSIb3DQEBAQUABIIB
-# AIRtKSvKU8d0ogyuzh1bh+iXAt/38kZugIr63+fQI+e4Vxq3Fx44KC3P+WRdyjKy
-# YHqsK+IUZqG/hAZOmD2BqPIREeOylfIu3f1UWqSQHf5O3hEkzYnQajdLrvANV3kC
-# ntlmvI8FIHOFbt8jg62f3QLuksq4ku76QBx6A9p7MEPqi1pn2qKGJZ2OcFl98w+4
-# wA41qkY9IqrCgiUank5E1+bC4wW4CUmxkFETehLA63B7lSlCdYNUqy3yh22RfZv+
-# qfAUVh3BcMnoYeBTc5kCsKIKH9PEAmC3HlddsXItLML2io9QMGviJ0JaeodrPGiW
-# S8ErxPx1ov9w3ODn6Duxs0I=
+# hvcNAQkEMRYEFGRCIatkKufx2c6DiWvVn6TDgvJgMA0GCSqGSIb3DQEBAQUABIIB
+# AIJsI70OWX39wYWwoiNltV7rFYy9raFjx5tkbf3SYZlKwGkSTX8xKDJvBMVh4kqg
+# pMtFfwEN2ZFzg2gJNGUGG2y5RV5XM95+w+8ssI/Hv3DnMjz+Ry2ShzJ2Qpy/KXM2
+# VW0RqJdkrmGwr66/tk2fmEPZpo+/PXQLZGQcZAzeLOM8ibeRK/QRIE1IBuXkaD5M
+# 2oIpLj8AvKzJrJomF1gh6memmd6NLknHzmrjJJ/Z0q7zDjxUwxaMMNkuRUWweul+
+# 3g0+PrSR8Fc6agBPjXK8YzYf9XeDl1Dt+D622dPJvaXFI94bpVeHSXVnrAIMkLvc
+# WttYO/UsOfmWVYMVuA02fbk=
 # SIG # End signature block
