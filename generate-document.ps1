@@ -14,7 +14,7 @@ param(
 
 $md_path = Resolve-Path $md_path
 $template = Resolve-Path $template
-Remove-Item $template -Steam Zone.Identifier
+Remove-Item $template -Stream Zone.Identifier
 
 "Downloading file"
 Invoke-WebRequest -Uri $md_path -OutFile '.\md.md'
@@ -44,7 +44,7 @@ $doc.InlineShapes | %{$_.Width = $picture_width}
 $doc.SaveAs($out_path)
 
 "Cleanup"
-$word.Quit(0)
+$word.Quit([ref]-1)
 [System.Runtime.Interopservices.Marshal]::ReleaseComObject($word)
 $word = $null
 Remove-Item md.md
@@ -54,8 +54,8 @@ Remove-Item md.md.html
 # SIG # Begin signature block
 # MIII3QYJKoZIhvcNAQcCoIIIzjCCCMoCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUuSllc5IQoWJPWPr5/c34VoWU
-# CnygggY1MIIGMTCCBRmgAwIBAgIKSU7nJAABAABQADANBgkqhkiG9w0BAQUFADBj
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUCWKPE2dokMLiiLU+7GjO3y/K
+# p8OgggY1MIIGMTCCBRmgAwIBAgIKSU7nJAABAABQADANBgkqhkiG9w0BAQUFADBj
 # MRIwEAYKCZImiZPyLGQBGRYCYXUxEzARBgoJkiaJk/IsZAEZFgNjb20xGDAWBgoJ
 # kiaJk/IsZAEZFghzZXJjb2JwbzEeMBwGA1UEAxMVc2VyY29icG8tRVhCRU5EQzAy
 # LUNBMB4XDTE3MDUyOTA3MTE0NVoXDTE4MDUyOTA3MTE0NVowgZ8xEjAQBgoJkiaJ
@@ -93,11 +93,11 @@ Remove-Item md.md.html
 # HAYDVQQDExVzZXJjb2Jwby1FWEJFTkRDMDItQ0ECCklO5yQAAQAAUAAwCQYFKw4D
 # AhoFAKB4MBgGCisGAQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwG
 # CisGAQQBgjcCAQQwHAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZI
-# hvcNAQkEMRYEFNJtn2RUYePca0bJXe78uNsbyINvMA0GCSqGSIb3DQEBAQUABIIB
-# AABCteovrR6CbTPzq4ofKrW+bFwkL1zM0G/0jNVhftqRW8zas/DfPLtrDLEUWMW0
-# 1sjNeKoT9+7nMcyyg1gxc4XZ4+vxH4kXK5fAiixWDR8zTEXM7YvsuIkEuF3G7amC
-# WOfgM7xjX+MhdahXiVcOW6Jbu5NfbcxG9sFClQBIMcWJd/1D1B4ohPj5rBsl5sp5
-# +Fi+qlxurHnX3vk/33G4+F5qx9/UYAVgE5jw9tvoXlVCOmXqub5Jkhl6I7LIgFg7
-# 4Zgv8tLbjJ00Ki3gJl3oiivql0ue2mF4OM1919jjqQKjFnhAPYaBseLy9jtd70dm
-# cEJoM6tVbPj7jjVJA+e+BXA=
+# hvcNAQkEMRYEFGCdreV+8oxC5gvvCVoDL3xwxp36MA0GCSqGSIb3DQEBAQUABIIB
+# AD3KM0ktDsEDnXcLLMKZRm8ofRuTUgi8NtiI+WicIXTfPJYuuoe2AfssXFaC49qK
+# AGolSYC61hgdTUPPwEX8lOPGRqD/jdiLrYQakYTyIjbuDutHuSIvku3tdRQ9xGki
+# SoPAdQ/BbbuHJvE1Pd+k3YbX5f+wLzDuY/w+j69zhCn8MfJD21a0Gfsr+LxaPAmx
+# FFMS93ijX2oaZSCT+co/OpAJkMSwwIoYKR+Hm3vKMwrr0RbhEmGcoYBAXXVs/YYy
+# oULuSrqCRgZ0+KaYx7RJ5O8LNYEXZb4OgABzyZFhTIROQIcIO+t4Em3WnESIr0vc
+# /aPRw3DTKXuvi2AZs8cGW8E=
 # SIG # End signature block
