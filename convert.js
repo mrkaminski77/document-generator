@@ -1,6 +1,14 @@
-// make sure the path to the node module is correct
-fs = require('fs')
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// convert.js
+//
+// a support routine to use markdown-it via node-js
+// The module will read all arguments from the command line and if the path exists attempt to render markdown as html.
+//
 
+var fs = require('fs')
+
+// make sure the path to the node module is correct
 var md = require('C:\\Users\\dleyden\\node_modules\\markdown-it')({
   html: true
 });

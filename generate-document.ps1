@@ -1,3 +1,9 @@
+########################################################################################################################
+#
+#   generate-document.ps1
+#
+#   Turn a markdown document in to a word document using specified template
+#   
 
 param(
     [string] $md_path,
@@ -5,25 +11,38 @@ param(
     [string] $template = '.\Serco.dotx',    
     [Int32] $picture_width = 460
 )
+
+$md_path = Resolve-Path $md_path
 $template = Resolve-Path $template
 Remove-Item $template -Steam Zone.Identifier
+
 "Downloading file"
 Invoke-WebRequest -Uri $md_path -OutFile '.\md.md'
-node .\convert.js md.md
-$html = Resolve-Path '.\output.html'
+
+$converter = "$(Split-Path -Parent $PSCommandPath)\convert.js"
+
+node $converter md.md
+
+$html = Resolve-Path '.\md.md.html'
 $out_path = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($out_path)
+
 "Initiatining Word"
 $word = New-Object -ComObject Word.Application
 $word.Visible = $true
+
 "Opening template"
 $doc = $word.Documents.Add($template)
+
 "Inserting content"
 $word.Selection.InsertFile($html)
+
 "Correcting Pictures"
 $doc.InlineShapes | %{$_.LockAspectRatio = -1}
 $doc.InlineShapes | %{$_.Width = $picture_width}
+
 "Saving file"
 $doc.SaveAs($out_path)
+
 "Cleanup"
 $word.Quit(0)
 [System.Runtime.Interopservices.Marshal]::ReleaseComObject($word)
@@ -35,8 +54,8 @@ Remove-Item md.md.html
 # SIG # Begin signature block
 # MIII3QYJKoZIhvcNAQcCoIIIzjCCCMoCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU6UBkpO030XqOKrJay9k8zeNR
-# x5CgggY1MIIGMTCCBRmgAwIBAgIKSU7nJAABAABQADANBgkqhkiG9w0BAQUFADBj
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUuSllc5IQoWJPWPr5/c34VoWU
+# CnygggY1MIIGMTCCBRmgAwIBAgIKSU7nJAABAABQADANBgkqhkiG9w0BAQUFADBj
 # MRIwEAYKCZImiZPyLGQBGRYCYXUxEzARBgoJkiaJk/IsZAEZFgNjb20xGDAWBgoJ
 # kiaJk/IsZAEZFghzZXJjb2JwbzEeMBwGA1UEAxMVc2VyY29icG8tRVhCRU5EQzAy
 # LUNBMB4XDTE3MDUyOTA3MTE0NVoXDTE4MDUyOTA3MTE0NVowgZ8xEjAQBgoJkiaJ
@@ -74,11 +93,11 @@ Remove-Item md.md.html
 # HAYDVQQDExVzZXJjb2Jwby1FWEJFTkRDMDItQ0ECCklO5yQAAQAAUAAwCQYFKw4D
 # AhoFAKB4MBgGCisGAQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwG
 # CisGAQQBgjcCAQQwHAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZI
-# hvcNAQkEMRYEFGRCIatkKufx2c6DiWvVn6TDgvJgMA0GCSqGSIb3DQEBAQUABIIB
-# AIJsI70OWX39wYWwoiNltV7rFYy9raFjx5tkbf3SYZlKwGkSTX8xKDJvBMVh4kqg
-# pMtFfwEN2ZFzg2gJNGUGG2y5RV5XM95+w+8ssI/Hv3DnMjz+Ry2ShzJ2Qpy/KXM2
-# VW0RqJdkrmGwr66/tk2fmEPZpo+/PXQLZGQcZAzeLOM8ibeRK/QRIE1IBuXkaD5M
-# 2oIpLj8AvKzJrJomF1gh6memmd6NLknHzmrjJJ/Z0q7zDjxUwxaMMNkuRUWweul+
-# 3g0+PrSR8Fc6agBPjXK8YzYf9XeDl1Dt+D622dPJvaXFI94bpVeHSXVnrAIMkLvc
-# WttYO/UsOfmWVYMVuA02fbk=
+# hvcNAQkEMRYEFNJtn2RUYePca0bJXe78uNsbyINvMA0GCSqGSIb3DQEBAQUABIIB
+# AABCteovrR6CbTPzq4ofKrW+bFwkL1zM0G/0jNVhftqRW8zas/DfPLtrDLEUWMW0
+# 1sjNeKoT9+7nMcyyg1gxc4XZ4+vxH4kXK5fAiixWDR8zTEXM7YvsuIkEuF3G7amC
+# WOfgM7xjX+MhdahXiVcOW6Jbu5NfbcxG9sFClQBIMcWJd/1D1B4ohPj5rBsl5sp5
+# +Fi+qlxurHnX3vk/33G4+F5qx9/UYAVgE5jw9tvoXlVCOmXqub5Jkhl6I7LIgFg7
+# 4Zgv8tLbjJ00Ki3gJl3oiivql0ue2mF4OM1919jjqQKjFnhAPYaBseLy9jtd70dm
+# cEJoM6tVbPj7jjVJA+e+BXA=
 # SIG # End signature block
